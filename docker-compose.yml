@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  web:
+    container_name: 'code_college_web'
+    build: .
+    volumes:
+      - .:/home/CodeCollege
+    command: python3 code_college/manage.py runserver 0.0.0.0:8000
+    tty: True
+    depends_on:
+      - migrations
+    ports:
+      - "8000:8000"
+
+  migrations:
+    container_name: 'code_college_migrations'
+    build: .
+    volumes:
+      - .:/home/CodeCollege
+    command: python3 code_college/manage.py makemigrations
+    depends_on:
+      - migrate
+    tty: True
+
+  migrate:
+    container_name: 'code_college_migrate'
+    build: .
+    volumes:
+      - .:/home/CodeCollege
+    command: python3 code_college/manage.py migrate
+    tty: True
