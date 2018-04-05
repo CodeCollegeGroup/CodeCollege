@@ -1,0 +1,20 @@
+language: python
+
+python:
+  - 3.6
+
+before-install:
+  - sudo apt-get update
+
+install:
+  - sudo apt-get install docker curl -y
+  - sudo curl -L https://github.com/docker/compose/releases/download/1.20.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+  - sudo chmod +x /usr/local/bin/docker-compose
+
+script:
+  - sudo docker-compose up -d
+  - sudo docker-compose run web code_college/manage.py test
+
+branch:
+  only:
+    - master
