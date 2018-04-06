@@ -1,5 +1,6 @@
 from rest_framework import viewsets
-from . import models.OrdinaryUser
+from .models  import OrdinaryUser
+from .serializers import OrdinaryUserSerializer
 
 class OrdinaryUserViewSet(viewsets.ModelViewSet):
 
