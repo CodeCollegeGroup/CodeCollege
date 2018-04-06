@@ -13,7 +13,8 @@ install:
 
 script:
   - sudo docker-compose run web flake8 --exclude=migrations
-  - find -name *.py | xargs sudo docker-compose run web pylint
+  - sudo docker-compose run web pylint */*.py
+  - sudo docker-compose run web pylint */*/*.py
   - sudo docker-compose up -d
   - sudo docker-compose run web code_college/manage.py test
 

@@ -1,8 +1,6 @@
 # tmp files
 __pycache__/
 
-# Migrations
-migrations
 
 # DB
 code_college/db.sqlite3
