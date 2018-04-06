@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from json import dumps
 from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
