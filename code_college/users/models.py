@@ -10,3 +10,6 @@ class OrdinaryUser(User, models.Model):
     college = models.CharField()
 
     college_registry = models.CharField()
+
+    def save(self, *args, **kwargs): # pylint: disable=arguments-differ
+        super(OrdinaryUser, self).save(*args, **kwargs)
