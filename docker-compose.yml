@@ -12,6 +12,9 @@ services:
       - migrate
     ports:
       - "8000:8000"
+    environment:
+      - EMAIL_ADDRESS="somemail@gmail.com"
+      - EMAILPWD="password"
 
   migrate:
     container_name: 'code_college_migrate'
