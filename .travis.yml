@@ -12,6 +12,8 @@ install:
   - sudo chmod +x /usr/local/bin/docker-compose
 
 script:
+  - sudo docker-compose run web flake8 --exclude=migrations
+  - find -name *.py | xargs sudo docker-compose run web pylint
   - sudo docker-compose up -d
   - sudo docker-compose run web code_college/manage.py test
 
