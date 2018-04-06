@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 LOCAL_APPS = ['users']
 
 DJANGO_APPS = [
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -9,7 +9,7 @@ services:
     command: python3 code_college/manage.py runserver 0.0.0.0:8000
     tty: True
     depends_on:
-      - migrations
+      - migrate
     ports:
       - "8000:8000"
 
