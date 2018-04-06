@@ -4,7 +4,8 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
-from . import models.OrdinaryUser
+from .models  import OrdinaryUser
+from .serializers import OrdinaryUserSerializer
 
 
 class RecoverView(APIView):
