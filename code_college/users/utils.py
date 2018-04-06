@@ -2,8 +2,10 @@ from rest_framework.test import APIClient
 from rest_framework_jwt.settings import api_settings
 from .serializers import OrdinaryUserSerializer
 
+
 def jwt_response_payload_handler(token, user=None, unused_request=None):
     context = OrdinaryUserSerializer(user.baseuser).data
+    print(context)
     context['token'] = token
 
     return context

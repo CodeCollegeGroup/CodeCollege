@@ -21,10 +21,16 @@ services:
     command: python3 code_college/manage.py migrate
     depends_on:
       - migrations
+    environment:
+      - EMAIL_ADDRESS="somemail@gmail.com"
+      - EMAIL_PWD="password"
     tty: True
 
   migrations:
     container_name: 'code_college_migrations'
+    environment:
+      - EMAIL_ADDRESS="somemail@gmail.com"
+      - EMAIL_PWD="password"
     build: .
     volumes:
       - .:/home/CodeCollege

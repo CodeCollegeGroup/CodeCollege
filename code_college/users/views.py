@@ -1,10 +1,10 @@
 from json import dumps
+from django.core.mail import EmailMessage
+from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
-from django.core.mail import EmailMessage
-from django.contrib.auth.models import User
-from .models  import OrdinaryUser
+from .models import OrdinaryUser
 from .serializers import OrdinaryUserSerializer
 
 
@@ -68,6 +68,7 @@ class RecoverView(APIView):
             return Response(dumps({'detail': 'email sent'}), status=200)
 
         return Response(dumps({'detail': 'user not found'}), status=404)
+
 
 class OrdinaryUserViewSet(viewsets.ModelViewSet):
 
