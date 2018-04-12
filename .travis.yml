@@ -21,3 +21,6 @@ script:
 branch:
   only:
     - master
+
+notifications:
+  slack: codecollege-desenho:4t0jP0tm4iWr4L0o9xLqwGsx
