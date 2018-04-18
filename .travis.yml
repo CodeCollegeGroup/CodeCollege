@@ -10,6 +10,9 @@ install:
   - sudo apt-get install docker curl -y
   - sudo curl -L https://github.com/docker/compose/releases/download/1.20.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
   - sudo chmod +x /usr/local/bin/docker-compose
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
   - sudo docker-compose run web flake8 --exclude=migrations
@@ -17,6 +20,9 @@ script:
   - sudo docker-compose run web pylint */*/*.py
   - sudo docker-compose up -d
   - sudo docker-compose run web code_college/manage.py test
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 branch:
   only:
