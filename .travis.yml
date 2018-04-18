@@ -16,7 +16,7 @@ install:
   - sudo chmod +x /usr/local/bin/docker-compose
   - sudo curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - sudo chmod +x ./cc-test-reporter
-  - sudo ./cc-test-reporter before-build
+  - sudo ./cc-test-reporter --prefix /home/CodeCollege/code_college before-build
 
 script:
   - sudo docker-compose run web flake8 --exclude=migrations
