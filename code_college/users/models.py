@@ -11,6 +11,6 @@ class OrdinaryUser(User, models.Model):
 
     college_registry = models.CharField(max_length=20)
 
-    project = models.ForeignKey(University,
-                                on_delete=models.CASCADE,
-                                null=True)
+    university = models.ForeignKey(University,
+                                   on_delete=models.CASCADE,
+                                   null=True)
