@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/CodeCollegeGroup/CodeCollege.svg?branch=master)](https://travis-ci.org/CodeCollegeGroup/CodeCollege)
+
 ## Executando o projeto
 Utilizando o docker e docker-compose:
 `sudo docker-compose up`
