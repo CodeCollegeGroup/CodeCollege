@@ -16,7 +16,7 @@ script:
   - sudo docker-compose run web pylint */*.py
   - sudo docker-compose run web pylint */*/*.py
   - sudo docker-compose up -d
-  - sudo docker-compose run web code_college/manage.py test
+  - sudo docker-compose run web python -Wall manage.py test
 
 branch:
   only:
