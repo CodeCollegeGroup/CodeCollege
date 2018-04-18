@@ -32,7 +32,7 @@ class Project(models.Model):
                                    null=True)
     # Como validar ao menos 1?
     contributors = models.ManyToManyField(User)
-    # adiconar categorias
+    categories = models.ManyToManyField(ProjectCategory)
 
     def __str__(self):
         return self.title
