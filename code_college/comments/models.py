@@ -3,6 +3,7 @@ from users.models import User
 from projects.models import Project
 from categories.models import DenouncementCategory
 
+
 class Comment(models.Model):
 
     message = models.CharField(max_length=400)
