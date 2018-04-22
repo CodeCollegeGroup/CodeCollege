@@ -30,7 +30,17 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+<<<<<<< b033a97a75edabfdf649fb096b8618557a6a01f9
 LOCAL_APPS = ['users']
+=======
+LOCAL_APPS = [
+    'universities',
+    'users',
+    'projects',
+    'categories',
+    'comments'
+]
+>>>>>>> Refactor models to Package Diagram
 
 DJANGO_APPS = [
     'django.contrib.admin',
