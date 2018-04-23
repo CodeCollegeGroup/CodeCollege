@@ -34,4 +34,4 @@ class ProjectImage(models.Model):
     image = models.ImageField
 
     def __str__(self):
-        return self.image.name
+        return self.image
