@@ -11,8 +11,6 @@ class OrdinaryUser(User):
         null=True
     )
 
-    college_registry = models.CharField(
-        max_length=20
-    )
+    college_registry = models.CharField(max_length=20)
 
     birthday = models.DateField()

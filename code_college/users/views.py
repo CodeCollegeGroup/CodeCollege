@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 from .models import OrdinaryUser
 from .serializers import OrdinaryUserSerializer
+import json
 
 
 class RecoverView(APIView):
@@ -74,3 +75,16 @@ class OrdinaryUserViewSet(viewsets.ModelViewSet):
 
     serializer_class = OrdinaryUserSerializer
     queryset = OrdinaryUser.objects.all()
+
+    def create(self, request):
+        print(request.body)
+        data = json.loads(request.body.decode())
+        print(data)
+        OrdinaryUser.objects.create_user(
+            username=data['username'],
+            first_name=data['first_name'],
+            email=data['email'],
+            college=data['college'],
+            college_registry=data['college_registry']
+        )
+        return Response(status=200)
