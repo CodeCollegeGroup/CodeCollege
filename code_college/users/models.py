@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class OrdinaryUser(User, models.Model):
 
-    birthday = models.DateField()
+    birthday = models.DateField(blank=True, null=True)
 
     college = models.CharField(max_length=80)
 
