@@ -15,10 +15,11 @@ install:
   - sudo curl -L https://github.com/docker/compose/releases/download/1.20.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
   - sudo chmod +x /usr/local/bin/docker-compose
 
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./code_college/cc-test-reporter
+  - chmod +x ./code_college/cc-test-reporter
+
 before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
+  - sudo docker-compose run migrations ./cc-test-reporter before-build
 
 # using run migrations because hasn't pre-requisites like web
 script:
@@ -33,7 +34,7 @@ script:
   - sudo docker-compose run migrations coverage xml
 
 after_script:
-    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+    - sudo docker-compose run migrations ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 branch:
   only:
