@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-LOCAL_APPS = ['users']
+LOCAL_APPS = ['users', 'project']
 
 DJANGO_APPS = [
     'rest_framework',
