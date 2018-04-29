@@ -1,20 +1,27 @@
 from django.db import models
-from users.models import User
-from projects.models import Project
-from categories.models import DenouncementCategory
 
 
 class Comment(models.Model):
 
+    project = models.ForeignKey(
+        'projects.Project',
+        on_delete=models.CASCADE
+    )
+
+    author = models.ForeignKey(
+        'users.OrdinaryUser',
+        on_delete=models.DO_NOTHING
+    )
+
+    answer_to = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True
+    )
+
     message = models.CharField(max_length=400)
 
-    image = models.ImageField
-
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-
-    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-
-    answer_to = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+    image = models.ImageField()
 
     def __str__(self):
         return self.message
@@ -32,15 +39,20 @@ class Denouncement(models.Model):
         (CLOSED, 'closed'),
     )
 
+    category = models.ForeignKey(
+        'categories.DenouncementCategory',
+        on_delete=models.CASCADE
+    )
+
     message = models.CharField(max_length=500)
 
-    status = models.CharField(max_length=12, choices=STATUS, default=OPEN)
-
-    category = models.ForeignKey(DenouncementCategory,
-                                 on_delete=models.CASCADE)
+    status = models.CharField(
+        max_length=12,
+        choices=STATUS,
+        default=OPEN
+    )
 
     class Meta:
-
         abstract = True
 
     def __str__(self):
@@ -49,17 +61,28 @@ class Denouncement(models.Model):
 
 class ProjectDenouncement(Denouncement):
 
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(
+        'projects.Project',
+        on_delete=models.CASCADE
+    )
 
 
 class CommentDenouncement(Denouncement):
 
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    comment = models.ForeignKey(
+        'Comment',
+        on_delete=models.CASCADE
+    )
 
 
 class Rating(models.Model):
+
+    appraiser = models.ForeignKey(
+        'users.OrdinaryUser',
+        on_delete=models.CASCADE
+    )
+
     like = models.BooleanField(default=True)
-    appraiser = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         abstract = True
@@ -69,8 +92,16 @@ class Rating(models.Model):
 
 
 class ProjectRating(Rating):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+    project = models.ForeignKey(
+        'projects.Project',
+        on_delete=models.CASCADE
+    )
 
 
 class CommentRating(Rating):
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+
+    comment = models.ForeignKey(
+        'Comment',
+        on_delete=models.CASCADE
+    )

@@ -8,7 +8,6 @@ class Category(models.Model):
     description = models.CharField(max_length=500)
 
     class Meta:
-
         abstract = True
 
     def __str__(self):
@@ -16,10 +15,8 @@ class Category(models.Model):
 
 
 class ProjectCategory(Category):
-
     pass
 
 
 class DenouncementCategory(Category):
-
     pass
