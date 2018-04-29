@@ -3,10 +3,6 @@ language: python
 python:
   - 3.6
 
-env:
-  global:
-    CC_TEST_REPORTER_ID=470f0048de804cd1cdf906abea8112369c3d25dcd3f453c7dc62bd532f8869d9
-
 before-install:
   - sudo apt-get update
 
