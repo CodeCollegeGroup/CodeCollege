@@ -3,6 +3,10 @@ language: python
 python:
   - 3.6
 
+env:
+  global:
+    CC_TEST_REPORTER_ID=470f0048de804cd1cdf906abea8112369c3d25dcd3f453c7dc62bd532f8869d9
+
 before-install:
   - sudo apt-get update
 
@@ -11,12 +15,26 @@ install:
   - sudo curl -L https://github.com/docker/compose/releases/download/1.20.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
   - sudo chmod +x /usr/local/bin/docker-compose
 
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+# using run migrations because hasn't pre-requisites like web
 script:
-  - sudo docker-compose run web flake8 --exclude=migrations
-  - sudo docker-compose run web pylint */*.py
-  - sudo docker-compose run web pylint */*/*.py
+  - sudo docker-compose run migrations flake8 --exclude=migrations
+  - sudo docker-compose run migrations pylint */*.py
+  - sudo docker-compose run migrations pylint */*/*.py
+
   - sudo docker-compose up -d
-  - sudo docker-compose run web python -Wall manage.py test
+  - sudo docker-compose run migrations mkdir -p tests_coverage
+  - sudo docker-compose run migrations coverage run ./manage.py test
+
+  - sudo docker-compose run migrations coverage report
+  - sudo docker-compose run migrations coverage xml
+
+after_script:
+    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 branch:
   only:
