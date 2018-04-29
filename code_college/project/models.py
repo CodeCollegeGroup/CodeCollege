@@ -12,7 +12,7 @@ class Project(models.Model):
 
     deploy = models.CharField(max_length=100)
 
-    colaborator = models.ManyToMany(OrdinaryUser)
+    colaborator = models.ManyToManyField(OrdinaryUser)
 
     university_class = models.CharField(max_length=150)
 
@@ -22,4 +22,4 @@ class Image(models.Model):
 
     image = models.ImageField(null=True)
 
-    project = models.ForeignKey(Project)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
