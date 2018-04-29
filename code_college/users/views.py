@@ -1,12 +1,12 @@
-from json import dumps
+from json import dumps, loads
 from django.core.mail import EmailMessage
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
 from .models import OrdinaryUser
 from .serializers import OrdinaryUserSerializer
-import json
 
 
 class RecoverView(APIView):
@@ -76,15 +76,22 @@ class OrdinaryUserViewSet(viewsets.ModelViewSet):
     serializer_class = OrdinaryUserSerializer
     queryset = OrdinaryUser.objects.all()
 
-    def create(self, request):
-        print(request.body)
-        data = json.loads(request.body.decode())
-        print(data)
-        OrdinaryUser.objects.create_user(
-            username=data['username'],
-            first_name=data['first_name'],
-            email=data['email'],
-            college=data['college'],
-            college_registry=data['college_registry']
-        )
-        return Response(status=200)
+    def create(self, request, *args, **kwargs):
+        status = 200
+        data = loads(request.body.decode())
+        if data['password'] != data['confirmation_password']:
+            status = 501
+        else:
+            try:
+                OrdinaryUser.objects.create_user(
+                    username=data['username'],
+                    password=data['password'],
+                    first_name=data['first_name'],
+                    birthday=data['birthday'],
+                    email=data['email'],
+                    college=data['college'],
+                    college_registry=data['college_registry']
+                )
+            except ValidationError:
+                status = 500
+        return Response(status)
