@@ -10,7 +10,7 @@ class Comment(models.Model):
 
     author = models.ForeignKey(
         'users.OrdinaryUser',
-        on_delete=models.DO_NOTHING
+        on_delete=models.CASCADE
     )
 
     answer_to = models.ForeignKey(

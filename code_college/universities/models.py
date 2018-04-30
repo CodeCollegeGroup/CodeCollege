@@ -5,8 +5,8 @@ class University(models.Model):
 
     users = models.ForeignKey(
         'users.OrdinaryUser',
+        on_delete=models.SET_NULL,
         null=True,
-        on_delete=models.SET_NULL
     )
 
     name = models.CharField(max_length=200)
