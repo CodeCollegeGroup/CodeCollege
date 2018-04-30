@@ -9,7 +9,6 @@ class Project(models.Model):
         null=True
     )
 
-    # Como validar ao menos 1?
     contributors = models.ManyToManyField('users.OrdinaryUser')
 
     categories = models.ManyToManyField('categories.ProjectCategory')
