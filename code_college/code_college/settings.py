@@ -30,11 +30,15 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-LOCAL_APPS = ['users']
+LOCAL_APPS = [
+    'universities',
+    'users',
+    'projects',
+    'categories',
+    'comments'
+]
 
 DJANGO_APPS = [
-    'rest_framework',
-    'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,7 +47,13 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS
+THIRD_PARTY_APPS = [
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_extensions'
+]
+
+INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
