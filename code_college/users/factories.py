@@ -17,4 +17,3 @@ class OrdinaryUserFactory(factory.DjangoModelFactory):
     college_registry = factory.Sequence(lambda n: '14/00000%03d' % n)
     birthday = factory.fuzzy.FuzzyDate(datetime.date(1995, 8, 17))
     university = factory.SubFactory(UniversityFactory)
-
