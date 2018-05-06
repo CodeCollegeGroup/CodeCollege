@@ -26,3 +26,12 @@ class ProjectFactory(factory.DjangoModelFactory):
         if extracted:
             for contributor in extracted:
                 self.contributors.add(contributor)
+
+
+class ProjectImageFactory(factory.DjangoModelFactory):
+
+    class Meta:
+        model = models.ProjectImage
+
+    image = factory.django.ImageField(color='pink')
+    project = factory.SubFactory(ProjectFactory)
