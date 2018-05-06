@@ -165,4 +165,6 @@ SHELL_PLUS_PRE_IMPORTS = [
     ("universities.factories", ("*")),
     ("users.factories", ("*")),
     ("projects.factories", ("*")),
+    ("comments.factories", ("*")),
+    ("categories.factories", ("*")),
 ]
