@@ -1,8 +1,13 @@
 # tmp files
-__pycache__/
+*.log
+*.pot
+*.pyc
+*.pye
+__pycache__
 
-# Migrations
-migrations
 
 # DB
-code_college/db.sqlite3
+db.sqlite3
+
+media
+migrations

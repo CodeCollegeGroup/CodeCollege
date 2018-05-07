@@ -6,19 +6,19 @@ services:
     build: .
     volumes:
       - .:/home/CodeCollege
-    command: python3 code_college/manage.py runserver 0.0.0.0:8000
-    tty: True
+    command: python manage.py runserver 0.0.0.0:8000
     depends_on:
       - migrate
     ports:
       - "8000:8000"
+    tty: True
 
   migrate:
     container_name: 'code_college_migrate'
     build: .
     volumes:
       - .:/home/CodeCollege
-    command: python3 code_college/manage.py migrate
+    command: python manage.py migrate
     depends_on:
       - migrations
     tty: True
@@ -28,5 +28,5 @@ services:
     build: .
     volumes:
       - .:/home/CodeCollege
-    command: python3 code_college/manage.py makemigrations
+    command: python manage.py makemigrations
     tty: True

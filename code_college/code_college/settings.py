@@ -30,10 +30,16 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-LOCAL_APPS = ['users', 'project']
+LOCAL_APPS = [
+    'universities',
+    'users',
+    'projects',
+    'categories',
+    'comments',
+    'project'
+]
 
 DJANGO_APPS = [
-    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +48,13 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS
+THIRD_PARTY_APPS = [
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django_extensions'
+]
+
+INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -107,6 +119,26 @@ AUTH_PASSWORD_VALIDATORS = [
                  'NumericPasswordValidator'),
     },
 ]
+
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = os.environ['EMAIL_ADDRESS']
+EMAIL_HOST_PASSWORD = os.environ["EMAIL_PWD"]
+DEFAULT_FROM_EMAIL = os.environ['EMAIL_ADDRESS']
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
 
 
 # Internationalization
