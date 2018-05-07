@@ -19,3 +19,8 @@ class Profile(models.Model):
         user = User.objects.get(user_id)
         contributors = user.contributed_projects
         return contributors
+
+    def search_comments_owner(self, user_id):
+        user = User.objects.get(user_id)
+        comments = user.author_comments
+        return comments
