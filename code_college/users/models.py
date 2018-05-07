@@ -6,7 +6,8 @@ class OrdinaryUser(User, models.Model):
 
     colaborated_projects = models.ForeignKey(
         'projects.Project',
-        on_delete=models.CASCADE
+        on_delete=models.SET_NULL,
+        null=True
     )
 
     birthday = models.DateField()
