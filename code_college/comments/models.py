@@ -61,5 +61,56 @@ class Denouncement(FeedbackFeature):
 
     solved = models.BooleanField()
 
+    def delete(self):
+        pass
+
+    def setState(self):
+        pass
+
     def __str__(self):
         return self.justification
+
+
+class DenouncementState:
+
+    denouncement = models.ForeignKey(
+        'Denouncement',
+        related_name='current_state'
+    )
+
+    _not_implemented_exception = NotImplementedError(
+        'This method must be implemented at all children classes'
+    )
+
+    def delete_denouncement(self):
+        raise self._not_implemented_exception
+
+    def notify_denouncer(self):
+        raise self._not_implemented_exception
+
+
+class Solved(DenouncementState):
+
+    def delete_denouncement(self):
+        print('Specific solved deletion')
+
+    def notify_denouncer(self):
+        print('Specific solved notify')
+
+
+class Waiting(DenouncementState):
+
+    def delete_denouncement(self):
+        print('Specific waiting deletion')
+
+    def notify_denouncer(self):
+        print('Specific waiting notify')
+
+
+class Done(DenouncementState):
+
+    def delete_denouncement(self):
+        print('Specific done deletion')
+
+    def notify_denouncer(self):
+        print('Specific done notify')
