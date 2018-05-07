@@ -18,8 +18,6 @@ class OrdinaryUser(User):
     birthday = models.DateField()
     college_registry = models.CharField(max_length=20)
 
-<<<<<<< HEAD
-
 class Profile(models.Model):
 
     class Meta:
@@ -62,7 +60,3 @@ class CommentsOwner(Profile):
 
     def get_result(self, user):
         return user.author_comments.all()
-=======
-class Profile(models.Model):
-    pass
->>>>>>> Add Profile class
