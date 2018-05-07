@@ -15,8 +15,10 @@ class Category(models.Model):
 
 
 class ProjectCategory(Category):
-    pass
+
+    projects = models.ManyToManyField('projects.Project')
 
 
 class DenouncementCategory(Category):
-    pass
+
+    denounces = models.ManyToManyField('comments.Denouncement')
