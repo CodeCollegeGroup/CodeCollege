@@ -19,7 +19,14 @@ class Project(models.Model):
     university_class = models.CharField(max_length=150)
 
 
+class ProjectProxy(Project):
+    class Meta:
+        ordering = ["title"]
+        proxy = True
 
+    def comment(self, project_id, user_id, answer_to, messege, image):
+
+            Comment(project_id, user_id, answer_to, messege, image).save()
 
 
 
