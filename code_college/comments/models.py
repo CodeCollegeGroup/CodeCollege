@@ -13,15 +13,16 @@ class FeedbackFeature(models.Model):
         on_delete=models.CASCADE
     )
 
+    comments = models.ForeignKey(
+       'Comment',
+       on_delete=models.SET_NULL,
+       null=True
+    )
+
     date_time = models.DateTimeField()
 
 
 class Comment(FeedbackFeature):
-
-    feed_back = models.ManyToManyField(
-        'FeedbackFeature',
-        related_name='comments'
-    )
 
     message = models.CharField(max_length=400)
 

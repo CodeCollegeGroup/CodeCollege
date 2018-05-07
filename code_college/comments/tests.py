@@ -60,7 +60,7 @@ class TestFeedbacksFeature(TestCase):
     def test_save_rating(self):
         self.rating.save()
 
-    def test_create_denouncement(self):
+    def test_save_denouncement(self):
         self.denouncement.save()
 
     def test_set_state(self):
