@@ -27,3 +27,8 @@ class Profile(models.Model):
         user = User.objects.get(user_id)
         projects = user.created_projects
         return projects
+
+    def search_project_contributes(self, user_id):
+        user = User.objects.get(user_id)
+        contributors = user.contributed_projects
+        return contributors
