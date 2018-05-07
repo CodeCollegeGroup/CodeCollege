@@ -3,24 +3,10 @@ from django.db import models
 
 class Project(models.Model):
 
-    recorder = models.ForeignKey(
+    owner = models.ForeignKey(
         'users.OrdinaryUser',
-        on_delete=models.CASCADE,
-        related_name='created_projects'
+        on_delete=models.CASCADE
     )
-
-    discipline = models.ForeignKey(
-        'universities.Discipline',
-        on_delete=models.SET_NULL,
-        null=True
-    )
-
-    contributors = models.ManyToManyField(
-        'users.OrdinaryUser',
-        related_name='contributed_projects'
-    )
-
-    categories = models.ManyToManyField('categories.ProjectCategory')
 
     title = models.CharField(max_length=200)
 
