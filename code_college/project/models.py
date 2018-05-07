@@ -4,22 +4,53 @@ from users.models import OrdinaryUser
 
 class Project(models.Model):
 
-    title = models.CharField(max_length=50)
+    recorder = models.ForeignKey(OrdinaryUser, on_delete=models.CASCADE)
 
-    description = models.CharField(max_length=200)
+    title = models.CharField(max_length=50, null= False)
 
-    repository = models.CharField(max_length=100)
+    description = models.CharField(max_length=200, null= False)
+
+    repository = models.CharField(max_length=100, null= False)
 
     deploy = models.CharField(max_length=100)
 
-    colaborator = models.ManyToManyField(OrdinaryUser)
+    colaborator = models.ManyToManyField(OrdinaryUser, related_name='contributed_projects')
 
     university_class = models.CharField(max_length=150)
 
-    # evaluation -> falta implementar classe
+
+
+
+
 
 class Image(models.Model):
 
-    image = models.ImageField(null=True)
+    # image = models.ImageField(null=True)
 
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+
+class Comment(models.Model):
+
+    project = models.ForeignKey(
+        'project.Project',
+        on_delete=models.CASCADE
+    )
+
+    author = models.ForeignKey(
+        'users.OrdinaryUser',
+        on_delete=models.CASCADE
+    )
+
+    answer_to = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True
+    )
+
+    message = models.CharField(max_length=500)
+
+    # image = models.ImageField()
+
+    def __str__(self):
+        return self.message
