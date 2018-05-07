@@ -28,6 +28,9 @@ class App(ProjectCategory):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
 
+    def getName():
+        return "App"
+
 class Game(ProjectCategory):
     class Meta:
         abstract = True
@@ -44,6 +47,9 @@ class Game(ProjectCategory):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
 
+    def getName():
+        return "Game"
+
 class Web(ProjectCategory):
     class Meta:
         abstract = True
@@ -59,6 +65,9 @@ class Web(ProjectCategory):
     def load(cls):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
+
+    def getName():
+        return "Web"
 
 
 class Project(models.Model):
@@ -88,8 +97,11 @@ class ProjectProxy(Project):
 
     def comment(self, project_id, user_id, answer_to, messege, image):
 
-            Comment(project_id, user_id, answer_to, messege, image).save()
+        Comment(project_id, user_id, answer_to, messege, image).save()
 
+    def giveCategory(projectCategory):
+
+        category = projectCategory.getName()
 
 
 
