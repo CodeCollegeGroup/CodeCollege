@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Comment(models.Model):
+class FeedbackFeature:
 
     project = models.ForeignKey(
         'projects.Project',
@@ -13,95 +13,56 @@ class Comment(models.Model):
         on_delete=models.CASCADE
     )
 
-    answer_to = models.ForeignKey(
-        'self',
-        on_delete=models.CASCADE,
-        null=True
-    )
+    date_time = models.DateTimeField()
+
+    class Meta:
+        abstract = True
+
+
+class Comment(FeedbackFeature):
+
+    feed_back = models.ManyToManyField('FeedbackFeature')
 
     message = models.CharField(max_length=400)
 
-    image = models.ImageField()
+    def answer(self):
+        pass
+
+    def dennounce(self):
+        pass
+
+    def like(self):
+        pass
+
+    def delete(self):
+        pass
+
+    def change(self):
+        pass
 
     def __str__(self):
         return self.message
 
 
-class Denouncement(models.Model):
+class Rating(FeedbackFeature):
 
-    OPEN = 'OP'
-    IN_ANALYSIS = 'AL'
-    CLOSED = 'CL'
+    like = models.BooleanField()
 
-    STATUS = (
-        (OPEN, 'open'),
-        (IN_ANALYSIS, 'in analysis'),
-        (CLOSED, 'closed'),
-    )
-
-    category = models.ForeignKey(
-        'categories.DenouncementCategory',
-        on_delete=models.CASCADE
-    )
-
-    message = models.CharField(max_length=500)
-
-    status = models.CharField(
-        max_length=12,
-        choices=STATUS,
-        default=OPEN
-    )
-
-    class Meta:
-        abstract = True
-
-    def __str__(self):
-        return self.message
-
-
-class ProjectDenouncement(Denouncement):
-
-    project = models.ForeignKey(
-        'projects.Project',
-        on_delete=models.CASCADE
-    )
-
-
-class CommentDenouncement(Denouncement):
-
-    comment = models.ForeignKey(
-        'Comment',
-        on_delete=models.CASCADE
-    )
-
-
-class Rating(models.Model):
-
-    appraiser = models.ForeignKey(
-        'users.OrdinaryUser',
-        on_delete=models.CASCADE
-    )
-
-    like = models.BooleanField(default=True)
-
-    class Meta:
-        abstract = True
+    def change(self):
+        pass
 
     def __str__(self):
         return self.like
 
 
-class ProjectRating(Rating):
+class Denouncement(FeedbackFeature):
 
-    project = models.ForeignKey(
-        'projects.Project',
-        on_delete=models.CASCADE
-    )
+    justification = models.CharField(max_length=500)
 
+    solved = models.BooleanField()
 
-class CommentRating(Rating):
+    class Meta:
+        abstract = True
 
-    comment = models.ForeignKey(
-        'Comment',
-        on_delete=models.CASCADE
-    )
+    def __str__(self):
+        return self.justification
