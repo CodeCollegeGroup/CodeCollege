@@ -3,8 +3,6 @@ from users.models import OrdinaryUser
 
 class ProjectCategory(models.Model):
 
-    description = models.CharField(max_length=500)
-
     class Meta:
         abstract = True
 
@@ -31,6 +29,10 @@ class App(ProjectCategory):
     def getName():
         return "App"
 
+    def getDescription():
+        return "..."
+
+
 class Game(ProjectCategory):
     class Meta:
         abstract = True
@@ -50,6 +52,9 @@ class Game(ProjectCategory):
     def getName():
         return "Game"
 
+    def getDescription():
+        return "..."
+
 class Web(ProjectCategory):
     class Meta:
         abstract = True
@@ -68,6 +73,9 @@ class Web(ProjectCategory):
 
     def getName():
         return "Web"
+
+    def getDescription():
+        return "..."
 
 
 class Project(models.Model):
