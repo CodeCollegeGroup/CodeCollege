@@ -1,9 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-<<<<<<< HEAD
-=======
-
->>>>>>> Apply Singleton on facade Profile
+from comments.migrations import Rating
 
 class OrdinaryUser(User):
 
@@ -24,6 +21,7 @@ class OrdinaryUser(User):
 
     college_registry = models.CharField(max_length=20)
 
+<<<<<<< HEAD
 
 class Profile(models.Model):
 
@@ -67,3 +65,7 @@ class CommentsOwner(Profile):
 
     def get_result(self, user):
         return user.author_comments.all()
+=======
+class Profile(models.Model):
+    pass
+>>>>>>> Add Profile class
