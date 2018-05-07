@@ -34,7 +34,7 @@ class Comment(FeedbackFeature):
     def like(self):
         pass
 
-    def delete(self):
+    def delete_denouncement(self):
         pass
 
     def change(self):
@@ -55,62 +55,91 @@ class Rating(FeedbackFeature):
         return self.like
 
 
-class Denouncement(FeedbackFeature):
+class DenouncementState(models.Model):
 
-    justification = models.CharField(max_length=500)
-
-    solved = models.BooleanField()
-
-    def delete(self):
-        pass
-
-    def setState(self):
-        pass
-
-    def __str__(self):
-        return self.justification
-
-
-class DenouncementState:
-
-    denouncement = models.ForeignKey(
+    denouncement = models.OneToOneField(
         'Denouncement',
-        related_name='current_state'
+        related_name='current_state',
+        on_delete=models.SET_NULL,
+        null=True
     )
 
     _not_implemented_exception = NotImplementedError(
         'This method must be implemented at all children classes'
     )
 
-    def delete_denouncement(self):
+    def specific_delete(self):
         raise self._not_implemented_exception
 
-    def notify_denouncer(self):
+    def specific_notify_denouncer(self):
         raise self._not_implemented_exception
 
 
-class Solved(DenouncementState):
+class NullState(DenouncementState):
+    # Exceptions to detect if void methods are being called
+
+    def specific_delete(self):
+        raise Exception('Specific deletion')
+
+    def specific_notify_denouncer(self):
+        raise Exception('Specific notifier')
+
+
+class SolvedState(DenouncementState):
+
+    def specific_delete(self):
+        pass
+
+    def specific_notify_denouncer(self):
+        pass
+
+
+class WaitingState(DenouncementState):
+
+    def specific_delete(self):
+        pass
+
+    def specific_notify_denouncer(self):
+        pass
+
+
+class DoneState(DenouncementState):
+
+    def specific_delete(self):
+        pass
+
+    def specific_notify_denouncer(self):
+        pass
+
+
+class Denouncement(FeedbackFeature):
+
+    justification = models.CharField(max_length=500)
+
+    current_state = FeedbackFeature
+
+    _default_state = WaitingState
 
     def delete_denouncement(self):
-        print('Specific solved deletion')
+        self.current_state.specific_delete()
 
     def notify_denouncer(self):
-        print('Specific solved notify')
+        self.current_state.specific_notify_denouncer()
 
+    def set_state(self, state):
+        self.current_state = state
 
-class Waiting(DenouncementState):
+        if not isinstance(state, NullState):
+            self.notify_denouncer()
 
-    def delete_denouncement(self):
-        print('Specific waiting deletion')
+    def __str__(self):
+        return self.justification
 
-    def notify_denouncer(self):
-        print('Specific waiting notify')
+    def save(self, *args, **kwargs):
+        # pylint: disable=arguments-differ
+        super(Denouncement, self).save(*args, **kwargs)
+        self._set_default_state()
 
-
-class Done(DenouncementState):
-
-    def delete_denouncement(self):
-        print('Specific done deletion')
-
-    def notify_denouncer(self):
-        print('Specific done notify')
+    def _set_default_state(self):
+        initial_state = self._default_state.objects.create()
+        self.set_state(initial_state)
