@@ -9,4 +9,8 @@ class OrdinaryUser(User, models.Model):
     college_registry = models.CharField(max_length=20)
 
 class Profile(models.Model):
-    pass
+
+    def search_project_owner(self, user_id):
+        user = User.objects.get(user_id)
+        projects = user.created_projects
+        return projects
