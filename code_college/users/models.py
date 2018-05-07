@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
 class OrdinaryUser(User):
 
     university = models.ForeignKey(
@@ -16,3 +15,7 @@ class OrdinaryUser(User):
     )
 
     birthday = models.DateField()
+    college_registry = models.CharField(max_length=20)
+
+class Profile(models.Model):
+    pass
