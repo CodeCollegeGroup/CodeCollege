@@ -32,6 +32,8 @@ class Project(models.Model):
         max_length=300
     )
 
+    #  categoties ...
+
     def __str__(self):
         return self.title
 
