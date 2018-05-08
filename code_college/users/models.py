@@ -4,8 +4,12 @@ from django.contrib.auth.models import User
 
 class OrdinaryUser(User, models.Model):
 
-    birthday = models.DateField(blank=True, null=True)
+    colaborated_projects = models.ForeignKey(
+        'projects.Project',
+        on_delete=models.SET_NULL,
+        null=True
+    )
 
-    college = models.CharField(max_length=80)
+    birthday = models.DateField()
 
     college_registry = models.CharField(max_length=20)
