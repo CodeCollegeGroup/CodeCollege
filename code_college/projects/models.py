@@ -20,6 +20,8 @@ class Project(models.Model):
 
     colaborators = models.ManyToManyField(OrdinaryUser, related_name='contributed_projects')
 
+    #  categoties ...
+
     def __str__(self):
         return self.title
 
@@ -33,10 +35,6 @@ class ProjectProxy(Project):
 
         Comment(project_id, user_id, answer_to, messege, image).save()
 
-    def addCategory(self,projectCategory):
-
-        self.categories.add(projectCategory)
-
 
 class ProjectImage(models.Model):
 
@@ -49,82 +47,3 @@ class ProjectImage(models.Model):
 
     def __str__(self):
         return self.image
-
-
-class ProjectCategory(models.Model):
-
-    class Meta:
-        abstract = True
-
-    projects = models.ManyToManyField(Project, related_name='catedories')
-
-    def __str__(self):
-        return self.name
-
-
-class App(ProjectCategory):
-    class Meta:
-        abstract = True
-
-    def save(self, *args, **kwargs):
-        self.pk = 1
-        super(App, self).save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        pass
-
-    @classmethod
-    def load(cls):
-        obj, created = cls.objects.get_or_create(pk=1)
-        return obj
-
-    def getName():
-        return "App"
-
-    def getDescription():
-        return "..."
-
-
-class Game(ProjectCategory):
-    class Meta:
-        abstract = True
-
-    def save(self, *args, **kwargs):
-        self.pk = 1
-        super(Game, self).save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        pass
-
-    @classmethod
-    def load(cls):
-        obj, created = cls.objects.get_or_create(pk=1)
-        return obj
-
-    def getName():
-        return "Game"
-
-    def getDescription():
-        return "..."
-
-class Web(ProjectCategory):
-    class Meta:
-        abstract = True
-
-    def save(self, *args, **kwargs):
-        self.pk = 1
-        super(Web, self).save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        pass
-
-    @classmethod
-    def load(cls):
-        obj, created = cls.objects.get_or_create(pk=1)
-        return obj
-
-    def getName():
-        return "Web"
-
-    def getDescription():
-        return "..."
