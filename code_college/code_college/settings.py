@@ -36,7 +36,6 @@ LOCAL_APPS = [
     'projects',
     'categories',
     'comments',
-    'project'
 ]
 
 DJANGO_APPS = [
