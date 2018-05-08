@@ -17,13 +17,13 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.urls import path
 from users import views
-from project import views
+from projects import views
 
 urlpatterns = [
     url('admin/', admin.site.urls),
     url('api/', include([
         url('users',include('users.urls')),
-        url('projects',include('project.urls')),
+        url('projects',include('projects.urls')),
     ]))
 
 ]

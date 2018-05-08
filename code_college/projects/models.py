@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import OrdinaryUser
+from comments.models import Comment
 
 
 class Project(models.Model):
@@ -35,6 +36,19 @@ class Project(models.Model):
         return self.title
 
 
+class ProjectProxy(Project):
+
+    def comment(self, project_id, user_id, answer_to, messege, image):
+        Comment(project_id, user_id, answer_to, messege, image).save()
+
+    def addCategory(self,projectCategory):
+        self.categories.add(projectCategory)
+
+    class Meta:
+        ordering = ["title"]
+        proxy = True
+
+
 class ProjectImage(models.Model):
 
     project = models.ForeignKey(
@@ -46,3 +60,86 @@ class ProjectImage(models.Model):
 
     def __str__(self):
         return self.image.url
+
+
+class ProjectCategory(models.Model):
+
+    projects = models.ManyToManyField(Project, related_name='catedories')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        abstract = True
+
+
+class App(ProjectCategory):
+
+    @classmethod
+    def load(cls):
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def getName():
+        return "App"
+
+    def getDescription():
+        return "..."
+
+    def delete(self, *args, **kwargs):
+        pass
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super(App, self).save(*args, **kwargs)
+
+    class Meta:
+        abstract = True
+
+
+class Game(ProjectCategory):
+
+    @classmethod
+    def load(cls):
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def getName():
+        return "Game"
+
+    def getDescription():
+        return "..."
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super(Game, self).save(*args, **kwargs)
+
+    class Meta:
+        abstract = True
+
+    def delete(self, *args, **kwargs):
+        pass
+
+
+class Web(ProjectCategory):
+
+    @classmethod
+    def load(cls):
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def getName():
+        return "Web"
+
+    def getDescription():
+        return "..."
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super(Web, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        pass
+
+    class Meta:
+        abstract = True
