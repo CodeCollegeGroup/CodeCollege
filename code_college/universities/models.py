@@ -17,6 +17,8 @@ class University(models.Model):
 
 class Discipline(models.Model):
 
+    projects = models.ManyToManyField('projects.Project')
+
     university = models.ForeignKey(
         'University',
         on_delete=models.CASCADE

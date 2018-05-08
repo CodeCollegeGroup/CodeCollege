@@ -1,6 +1,5 @@
 [run]
 branch = True
-source = code_college
 data_file = tests_coverage/coverage_data
 omit =
     manage.py,
@@ -11,7 +10,7 @@ omit =
     */tests.py
 
 [report]
-fail_under = 90
+fail_under = 70
 precision = 2
 exclude_lines =
     raise AssertionError,
