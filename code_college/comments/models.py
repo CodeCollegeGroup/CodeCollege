@@ -51,7 +51,16 @@ class CommentBase(Comment):
         return [self.text]
 
 
+class CommentDecorator(Comment):
 
+    decorator = models.ForeignKey(
+            'Comment',
+            on_delete=models.CASCADE,
+            related_name='my_decorators',
+            null=True)
+
+    def components(self):
+        return self.decorator.components
 
 
 class Rating(FeedbackFeature):
