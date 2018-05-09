@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
+from universities.models import University
 from .models import OrdinaryUser
 from .serializers import OrdinaryUserSerializer
 
@@ -83,15 +84,19 @@ class OrdinaryUserViewSet(viewsets.ModelViewSet):
             status = 501
         else:
             try:
-                OrdinaryUser.objects.create_user(
+                college = University.objects.filter(id=data['college'])[0]
+                user = OrdinaryUser.objects.create_user(
                     username=data['username'],
                     password=data['password'],
                     first_name=data['first_name'],
                     birthday=data['birthday'],
                     email=data['email'],
-                    college=data['college'],
                     college_registry=data['college_registry']
                 )
+                user.college = college
+                college.users.add(user.id)
+                college.save()
+                user.save()
             except ValidationError:
                 status = 500
         return Response(status)
