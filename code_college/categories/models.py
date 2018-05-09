@@ -20,5 +20,4 @@ class ProjectCategory(Category):
 
 
 class DenouncementCategory(Category):
-
     denounces = models.ManyToManyField('comments.Denouncement')

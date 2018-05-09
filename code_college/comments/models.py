@@ -24,8 +24,6 @@ class FeedbackFeature(models.Model):
 
 class Comment(FeedbackFeature):
 
-    message = models.CharField(max_length=400)
-
     def answer(self):
         pass
 
@@ -41,8 +39,19 @@ class Comment(FeedbackFeature):
     def change(self):
         pass
 
-    def __str__(self):
-        return self.message
+    def components(self):
+        pass
+
+
+class CommentBase(Comment):
+
+    text = models.CharField(max_length=400)
+
+    def components(self):
+        return [self.text]
+
+
+
 
 
 class Rating(FeedbackFeature):
