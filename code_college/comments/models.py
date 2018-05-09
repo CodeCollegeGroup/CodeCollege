@@ -71,7 +71,14 @@ class CommentImage(CommentDecorator):
         components.append(self.image)
         return components
 
+class CommentGif(CommentDecorator):
 
+    gif = models.ImageField()
+
+    def components(self):
+        components = super().decorator.components()
+        components.append(self.gif)
+        return components
 
 
 class Rating(FeedbackFeature):
