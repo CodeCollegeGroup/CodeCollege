@@ -62,6 +62,17 @@ class CommentDecorator(Comment):
     def components(self):
         return self.decorator.components
 
+class CommentImage(CommentDecorator):
+
+    image = models.ImageField()
+
+    def components(self):
+        components = super().decorator.components()
+        components.append(self.image)
+        return components
+
+
+
 
 class Rating(FeedbackFeature):
 
