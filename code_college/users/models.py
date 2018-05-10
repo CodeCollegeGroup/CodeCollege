@@ -36,15 +36,13 @@ class Profile(models.Model):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
 
-    def search_project_owner(self, user_id):
+    def search(self, user_id):
         user = User.objects.get(user_id)
-        projects = user.created_projects.all()
-        return projects
+        result = get_result(user)
+        return result
 
-    def search_project_contributes(self, user_id):
-        user = User.objects.get(user_id)
-        contributors = user.contributed_projects.all()
-        return contributors
+    def get_result(self, user):
+        pass
 
     def delete(self, *args, **kwargs):
         pass
