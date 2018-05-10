@@ -34,9 +34,20 @@ class ProjectProxy(Project):
         ordering = ["title"]
         proxy = True
 
-    def comment(self, project_id, user_id, answer_to, messege, image):
+    def comment(self, user_id, components, message):
 
-        Comment(project_id, user_id, answer_to, messege, image).save()
+        base = CommentBase()
+        base.text = messege
+        base.author = OrdinaryUser.objects.get(id=user_id)
+        base.project = self
+
+        for aux in range(len(components)-1):
+            components[aux].decorator = components[aux+1]
+
+        components[len(components)-1].decorator = base
+        components[len(components)-1].save()    
+
+
 
 
 class ProjectImage(models.Model):
