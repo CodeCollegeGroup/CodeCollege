@@ -48,7 +48,7 @@ class CommentBase(Comment):
     text = models.CharField(max_length=400)
 
     def components(self):
-        return {'text' : self.text}
+        return {'text': self.text}
 
 
 class CommentDecorator(Comment):
@@ -69,7 +69,7 @@ class CommentImage(CommentDecorator):
 
     def components(self):
         components = super().decorator.components()
-        components.update({'image' : self.image})
+        components.update({'image': self.image})
         return components
 
 
@@ -79,7 +79,7 @@ class CommentGif(CommentDecorator):
 
     def components(self):
         components = super().decorator.components()
-        components.update({'gif' : self.gif})
+        components.update({'gif': self.gif})
         return components
 
 

@@ -1,6 +1,6 @@
 from django.db import models
 from users.models import OrdinaryUser
-from comments.models import Comment
+from comments.models import CommentBase
 
 
 class Project(models.Model):
@@ -42,7 +42,7 @@ class ProjectProxy(Project):
 
     def comment(self, user_id, components, message):
         base = CommentBase()
-        base.text = messege
+        base.text = message
         base.author = OrdinaryUser.objects.get(id=user_id)
         base.project = self
 
@@ -51,7 +51,6 @@ class ProjectProxy(Project):
 
         components[len(components)-1].decorator = base
         components[len(components)-1].save()    
-
 
     def addCategory(self,projectCategory):
         self.categories.add(projectCategory)
@@ -77,7 +76,8 @@ class ProjectImage(models.Model):
 class ProjectCategory(models.Model):
 
     projects = models.ManyToManyField(
-        Project, related_name='categories'
+        Project,
+        related_name='categories'
     )
 
     def __str__(self):
