@@ -41,7 +41,7 @@ class Profile(models.Model):
 
     def search(self, user_id):
         user = User.objects.get(user_id)
-        result = get_result(user)
+        result = self.get_result(user)
         return result
 
     def get_result(self, user):
