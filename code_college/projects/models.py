@@ -10,15 +10,18 @@ class Project(models.Model):
         on_delete=models.CASCADE
     )
 
-    title = models.CharField(max_length=50, null= False)
+    title = models.CharField(max_length=50, null=False)
 
-    description = models.CharField(max_length=200, null= False)
+    description = models.CharField(max_length=200, null=False)
 
-    repository = models.CharField(max_length=100, null= False)
+    repository = models.CharField(max_length=100, null=False)
 
     deploy = models.CharField(max_length=100)
 
-    colaborators = models.ManyToManyField(OrdinaryUser, related_name='contributed_projects')
+    colaborators = models.ManyToManyField(
+            OrdinaryUser,
+            related_name='contributed_projects'
+    )
 
     #  categoties ...
 
