@@ -5,6 +5,8 @@ class ProjectCategory(models.Model):
 
     projects = models.ManyToManyField('projects.Project')
 
+    name = models.CharField(max_length=200)
+
     description = models.CharField(max_length=500)
 
     def __str__(self):
@@ -24,18 +26,9 @@ class App(ProjectCategory):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
 
-    def getName():
-        return "App"
-
-    def getDescription():
-        return "..."
-
     def save(self, args, **kwargs):
         self.pk = 1
         super(App, self).save(args, kwargs)
-
-    class Meta:
-        abstract = True
 
 
 class Game(ProjectCategory):
@@ -48,18 +41,9 @@ class Game(ProjectCategory):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
 
-    def getName():
-        return "Game"
-
-    def getDescription():
-        return "..."
-
     def save(self, args, **kwargs):
         self.pk = 1
         super(Game, self).save(args, kwargs)
-
-    class Meta:
-        abstract = True
 
 
 class Web(ProjectCategory):
@@ -82,18 +66,60 @@ class Web(ProjectCategory):
         self.pk = 1
         super(Web, self).save(args, kwargs)
 
-    class Meta:
-        abstract = True
-
 
 class DenouncementCategory(models.Model):
 
     denounces = models.ManyToManyField('comments.Denouncement')
+
+    name = models.CharField(max_length=200)
 
     description = models.CharField(max_length=500)
 
     def __str__(self):
         return self.name
 
-    class Meta:
-        abstract = True
+
+class Spam(DenouncementCategory):
+
+    def save(self, args, **kwargs):
+        self.pk = 1
+        super(Web, self).save(args, kwargs)
+
+    def delete(self, *args, kwargs):
+        pass
+
+    @classmethod
+    def load(cls):
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class InappropriateContent(DenouncementCategory):
+
+    def save(self, args, **kwargs):
+        self.pk = 1
+        super(Web, self).save(args, kwargs)
+
+    def delete(self, *args, kwargs):
+        pass
+
+    @classmethod
+    def load(cls):
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class Piracy(DenouncementCategory):
+
+    def delete(self, *args, kwargs):
+        pass
+
+    @classmethod
+    def load(cls):
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+    def save(self, args, **kwargs):
+        self.pk = 1
+        super(Web, self).save(args, kwargs)
+
