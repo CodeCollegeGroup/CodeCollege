@@ -1,6 +1,6 @@
 from django.db import models
 from users.models import OrdinaryUser
-from comments.models import Comment
+from comments.models import CommentBase
 
 
 class Project(models.Model):
@@ -37,7 +37,7 @@ class ProjectProxy(Project):
     def comment(self, user_id, components, message):
 
         base = CommentBase()
-        base.text = messege
+        base.text = message
         base.author = OrdinaryUser.objects.get(id=user_id)
         base.project = self
 
@@ -45,9 +45,7 @@ class ProjectProxy(Project):
             components[aux].decorator = components[aux+1]
 
         components[len(components)-1].decorator = base
-        components[len(components)-1].save()    
-
-
+        components[len(components)-1].save()
 
 
 class ProjectImage(models.Model):
