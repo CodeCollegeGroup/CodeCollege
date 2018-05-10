@@ -77,6 +77,7 @@ class DenouncementCategory(models.Model):
     def __str__(self):
         return self.name
 
+
 class Spam(DenouncementCategory):
     class Meta:
         abstract = True
@@ -93,6 +94,7 @@ class Spam(DenouncementCategory):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
 
+
 class InappropriateContent(DenouncementCategory):
     class Meta:
         abstract = True
@@ -108,6 +110,7 @@ class InappropriateContent(DenouncementCategory):
     def load(cls):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
+
 
 class Piracy(DenouncementCategory):
     class Meta:
