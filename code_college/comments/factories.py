@@ -1,4 +1,7 @@
 import factory
+import factory.fuzzy
+import datetime
+import pytz
 from . import models
 from users.factories import OrdinaryUserFactory
 from projects.factories import ProjectFactory
@@ -9,45 +12,94 @@ class CommentFactory(factory.DjangoModelFactory):
     class Meta:
         model = models.Comment
 
-    author = factory.SubFactory(OrdinaryUserFactory)
-    project = factory.SubFactory(ProjectFactory)
-    message = factory.Faker('word')
-    image = factory.django.ImageField(color='pink')
+    author = factory.SubFactory(
+        OrdinaryUserFactory
+    )
+
+    project = factory.SubFactory(
+        ProjectFactory
+    )
+
+    date_time = factory.fuzzy.FuzzyDateTime(
+        datetime.datetime.now(tz=pytz.timezone('UTC'))
+    )
+
+    message = factory.Faker(
+        'word'
+    )
 
 
-class ProjectDenouncementFactory(factory.DjangoModelFactory):
-
-    class Meta:
-        model = models.ProjectDenouncement
-
-    message = factory.Faker('word')
-    status = 'OP'
-    project = factory.SubFactory(ProjectFactory)
-
-    @factory.post_generation
-    def categories(self, create, extracted, **kwargs):
-        if not create:
-            return
-
-        if extracted:
-            for category in extracted:
-                self.categories.add(category)
-
-
-class CommentDenouncementFactory(factory.DjangoModelFactory):
+class FeedbackFeatureFactory(factory.DjangoModelFactory):
 
     class Meta:
-        model = models.CommentDenouncement
+        model = models.FeedbackFeature
 
-    message = factory.Faker('word')
-    status = 'OP'
-    comment = factory.SubFactory(CommentFactory)
+    author = factory.SubFactory(
+        OrdinaryUserFactory
+    )
 
-    @factory.post_generation
-    def categories(self, create, extracted, **kwargs):
-        if not create:
-            return
+    project = factory.SubFactory(
+        ProjectFactory
+    )
 
-        if extracted:
-            for category in extracted:
-                self.categories.add(category)
+    comments = factory.SubFactory(
+        CommentFactory
+    )
+
+    date_time = factory.fuzzy.FuzzyDateTime(
+        datetime.datetime.now(tz=pytz.timezone('UTC'))
+    )
+
+
+class RatingFactory(FeedbackFeatureFactory):
+
+    class Meta:
+        model = models.Rating
+
+    like = factory.Iterator(
+        [True, False]
+    )
+
+
+class DenouncementFactory(FeedbackFeatureFactory):
+
+    class Meta:
+        model = models.Denouncement
+
+    justification = factory.Faker(
+        'word'
+    )
+
+
+class DenouncementStateFactory(factory.DjangoModelFactory):
+
+    class Meta:
+        model = models.DenouncementState
+
+    denouncement = factory.SubFactory(
+        DenouncementFactory
+    )
+
+
+class NullStateFactory(DenouncementStateFactory):
+
+    class Meta:
+        model = models.NullState
+
+
+class SolvedStateFactory(DenouncementStateFactory):
+
+    class Meta:
+        model = models.SolvedState
+
+
+class WaitingStateFactory(DenouncementStateFactory):
+
+    class Meta:
+        model = models.WaitingState
+
+
+class DoneStateFactory(DenouncementStateFactory):
+
+    class Meta:
+        model = models.DoneState
