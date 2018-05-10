@@ -78,10 +78,10 @@ class OrdinaryUserViewSet(viewsets.ModelViewSet):
     queryset = OrdinaryUser.objects.all()
 
     def create(self, request, *args, **kwargs):
-        status = 200
+        response = Response()
         data = loads(request.body.decode())
         if data['password'] != data['confirmation_password']:
-            status = 501
+            response = Response(status=501)
         else:
             try:
                 college = University.objects.filter(id=data['college'])[0]
@@ -98,5 +98,5 @@ class OrdinaryUserViewSet(viewsets.ModelViewSet):
                 college.save()
                 user.save()
             except ValidationError:
-                status = 500
-        return Response(status)
+                response = Response(status=500)
+        return response
