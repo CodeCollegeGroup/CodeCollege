@@ -40,9 +40,11 @@ class ProjectProxy(Project):
         base.text = message
         base.author = OrdinaryUser.objects.get(id=user_id)
         base.project = self
+        base.save()
 
         for aux in range(len(components)-1):
             components[aux].decorator = components[aux+1]
+            components[aux].save()
 
         components[len(components)-1].decorator = base
         components[len(components)-1].save()
