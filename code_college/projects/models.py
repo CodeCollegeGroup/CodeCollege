@@ -66,7 +66,9 @@ class ProjectImage(models.Model):
 
 class ProjectCategory(models.Model):
 
-    projects = models.ManyToManyField(Project, related_name='catedories')
+    projects = models.ManyToManyField(
+        Project, related_name='categories'
+    )
 
     def __str__(self):
         return self.name
