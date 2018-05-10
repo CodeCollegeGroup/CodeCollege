@@ -14,8 +14,7 @@ class ProjectFactory(factory.DjangoModelFactory):
     description = factory.Faker('word')
     repository = factory.LazyAttribute(lambda o: '%s@github.com' % o.title)
     deploy = factory.LazyAttribute(lambda o: '%s@heroku.com' % o.title)
-    discipline = factory.SubFactory(DisciplineFactory)
-    recorder = factory.SubFactory(OrdinaryUserFactory)
+    owner = factory.SubFactory(OrdinaryUserFactory)
 
     @factory.post_generation
     def contributors(self, create, extracted, **kwargs):
