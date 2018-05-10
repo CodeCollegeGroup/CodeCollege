@@ -40,8 +40,18 @@ class Project(models.Model):
 
 class ProjectProxy(Project):
 
-    def comment(self, project_id, user_id, answer_to, messege, image):
-        Comment(project_id, user_id, answer_to, messege, image).save()
+    def comment(self, user_id, components, message):
+        base = CommentBase()
+        base.text = messege
+        base.author = OrdinaryUser.objects.get(id=user_id)
+        base.project = self
+
+        for aux in range(len(components)-1):
+            components[aux].decorator = components[aux+1]
+
+        components[len(components)-1].decorator = base
+        components[len(components)-1].save()    
+
 
     def addCategory(self,projectCategory):
         self.categories.add(projectCategory)
