@@ -2,7 +2,6 @@ import factory
 import factory.fuzzy
 from . import models
 from users.factories import OrdinaryUserFactory
-from universities.factories import DisciplineFactory
 
 
 class ProjectFactory(factory.DjangoModelFactory):
@@ -10,11 +9,25 @@ class ProjectFactory(factory.DjangoModelFactory):
     class Meta:
         model = models.Project
 
-    title = factory.Faker('word')
-    description = factory.Faker('word')
-    repository = factory.LazyAttribute(lambda o: '%s@github.com' % o.title)
-    deploy = factory.LazyAttribute(lambda o: '%s@heroku.com' % o.title)
-    owner = factory.SubFactory(OrdinaryUserFactory)
+    owner = factory.SubFactory(
+        OrdinaryUserFactory
+    )
+
+    title = factory.Faker(
+        'word'
+    )
+
+    description = factory.Faker(
+        'word'
+    )
+
+    repository = factory.LazyAttribute(
+        lambda o: '%s@github.com' % o.title
+    )
+
+    deploy = factory.LazyAttribute(
+        lambda o: '%s@heroku.com' % o.title
+    )
 
     @factory.post_generation
     def contributors(self, create, extracted, **kwargs):
@@ -40,5 +53,10 @@ class ProjectImageFactory(factory.DjangoModelFactory):
     class Meta:
         model = models.ProjectImage
 
-    image = factory.django.ImageField(color='pink')
-    project = factory.SubFactory(ProjectFactory)
+    project = factory.SubFactory(
+        ProjectFactory
+    )
+
+    image = factory.django.ImageField(
+        color='pink'
+    )

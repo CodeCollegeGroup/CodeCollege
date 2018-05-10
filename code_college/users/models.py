@@ -17,4 +17,3 @@ class OrdinaryUser(User):
     )
 
     birthday = models.DateField()
-
