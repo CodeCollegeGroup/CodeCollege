@@ -25,7 +25,7 @@ SECRET_KEY = 'rl8gal*9p0vgj2x_dn3wt*af(&jhbv%h8zhjfhe(&&#4%r2yx_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -50,6 +50,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
     'django_extensions'
 ]
 
@@ -63,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'code_college.urls'
@@ -139,6 +141,20 @@ REST_FRAMEWORK = {
     ),
 }
 
+# Cross origin access configuration
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
+)
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -158,3 +174,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Shell Plus
+
+SHELL_PLUS_PRE_IMPORTS = [
+    ("universities.factories", ("*")),
+    ("users.factories", ("*")),
+    ("projects.factories", ("*")),
+    ("comments.factories", ("*")),
+    ("categories.factories", ("*")),
+]

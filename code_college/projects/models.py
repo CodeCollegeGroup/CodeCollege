@@ -23,8 +23,6 @@ class Project(models.Model):
             related_name='contributed_projects'
     )
 
-    #  categoties ...
-
     def __str__(self):
         return self.title
 
@@ -60,4 +58,4 @@ class ProjectImage(models.Model):
     image = models.ImageField()
 
     def __str__(self):
-        return self.image
+        return self.image.url

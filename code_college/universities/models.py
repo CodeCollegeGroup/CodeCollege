@@ -3,10 +3,8 @@ from django.db import models
 
 class University(models.Model):
 
-    users = models.ForeignKey(
+    users = models.ManyToManyField(
         'users.OrdinaryUser',
-        on_delete=models.SET_NULL,
-        null=True,
     )
 
     name = models.CharField(max_length=200)
@@ -17,12 +15,12 @@ class University(models.Model):
 
 class Discipline(models.Model):
 
-    projects = models.ManyToManyField('projects.Project')
-
     university = models.ForeignKey(
         'University',
         on_delete=models.CASCADE
     )
+
+    projects = models.ManyToManyField('projects.Project')
 
     name = models.CharField(max_length=200)
 

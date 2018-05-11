@@ -10,7 +10,8 @@ class FeedbackFeature(models.Model):
 
     author = models.ForeignKey(
         'users.OrdinaryUser',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='author_comments'
     )
 
     comments = models.ForeignKey(
@@ -91,7 +92,7 @@ class Rating(FeedbackFeature):
         pass
 
     def __str__(self):
-        return self.like
+        return "{like}".format(**self.__dict__)
 
 
 class DenouncementState(models.Model):
