@@ -4,9 +4,8 @@ from django.contrib.auth.models import User
 
 class OrdinaryUser(User):
 
-    university = models.ForeignKey(
+    college = models.ForeignKey(
         'universities.University',
-        related_name='students',
         on_delete=models.SET_NULL,
         null=True
     )
