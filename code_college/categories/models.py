@@ -41,10 +41,6 @@ class Game(ProjectCategory):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
 
-    def save(self, args, **kwargs):
-        self.pk = 1
-        super(Game, self).save(args, kwargs)
-
 
 class Web(ProjectCategory):
 
@@ -81,10 +77,6 @@ class DenouncementCategory(models.Model):
 
 class Spam(DenouncementCategory):
 
-    def save(self, args, **kwargs):
-        self.pk = 1
-        super(Web, self).save(args, kwargs)
-
     def delete(self, *args, kwargs):
         pass
 
@@ -92,14 +84,14 @@ class Spam(DenouncementCategory):
     def load(cls):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
+
+    def save(self, args, **kwargs):
+        self.pk = 1
+        super(Web, self).save(args, kwargs)
 
 
 class InappropriateContent(DenouncementCategory):
 
-    def save(self, args, **kwargs):
-        self.pk = 1
-        super(Web, self).save(args, kwargs)
-
     def delete(self, *args, kwargs):
         pass
 
@@ -107,6 +99,10 @@ class InappropriateContent(DenouncementCategory):
     def load(cls):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
+
+    def save(self, args, **kwargs):
+        self.pk = 1
+        super(Web, self).save(args, kwargs)
 
 
 class Piracy(DenouncementCategory):
