@@ -46,7 +46,7 @@ class Game(ProjectCategory):
     def load(cls):
         obj, created = cls.objects.get_or_create(pk=1)
         return obj
-      
+
 
 class Web(ProjectCategory):
     class Meta:
