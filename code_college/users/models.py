@@ -15,13 +15,11 @@ class OrdinaryUser(User):
     )
 
     birthday = models.DateField()
+
     college_registry = models.CharField(max_length=20)
 
 
 class Profile(models.Model):
-
-    class Meta:
-        abstract = True
 
     def save(self, *args, **kwargs):
         self.pk = 1
@@ -42,6 +40,9 @@ class Profile(models.Model):
 
     def get_result(self, user):
         pass
+
+    class Meta:
+        abstract = True
 
 
 class ProjectOwner(Profile):
