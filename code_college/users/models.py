@@ -2,14 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class OrdinaryUser(User, models.Model):
+class OrdinaryUser(User):
 
-    colaborated_projects = models.ForeignKey(
-        'projects.Project',
+    university = models.ForeignKey(
+        'universities.University',
+        related_name='students',
         on_delete=models.SET_NULL,
         null=True
     )
 
-    birthday = models.DateField()
+    college_registry = models.CharField(
+        max_length=20
+    )
 
-    college_registry = models.CharField(max_length=20)
+    birthday = models.DateField()
