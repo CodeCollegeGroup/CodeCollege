@@ -53,7 +53,7 @@ class Rating(FeedbackFeature):
         pass
 
     def __str__(self):
-        return self.like
+        return "{like}".format(**self.__dict__)
 
 
 class DenouncementState(models.Model):

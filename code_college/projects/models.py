@@ -1,20 +1,35 @@
 from django.db import models
+from users.models import OrdinaryUser
 
 
 class Project(models.Model):
 
     owner = models.ForeignKey(
         'users.OrdinaryUser',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='owner_projects'
     )
 
-    title = models.CharField(max_length=200)
+    contributors = models.ManyToManyField(
+        OrdinaryUser,
+        related_name='contributed_projects'
+    )
 
-    description = models.CharField(max_length=500)
+    title = models.CharField(
+        max_length=200
+    )
 
-    repository = models.CharField(max_length=300)
+    description = models.CharField(
+        max_length=500
+    )
 
-    deploy = models.CharField(max_length=300)
+    repository = models.CharField(
+        max_length=300
+    )
+
+    deploy = models.CharField(
+        max_length=300
+    )
 
     def __str__(self):
         return self.title
@@ -30,4 +45,4 @@ class ProjectImage(models.Model):
     image = models.ImageField()
 
     def __str__(self):
-        return self.image
+        return self.image.url

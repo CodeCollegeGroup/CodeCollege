@@ -1,9 +1,11 @@
-from json import dumps
+from json import dumps, loads
 from django.core.mail import EmailMessage
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
+from universities.models import University
 from .models import OrdinaryUser
 from .serializers import OrdinaryUserSerializer
 
@@ -74,3 +76,27 @@ class OrdinaryUserViewSet(viewsets.ModelViewSet):
 
     serializer_class = OrdinaryUserSerializer
     queryset = OrdinaryUser.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        response = Response()
+        data = loads(request.body.decode())
+        if data['password'] != data['confirmation_password']:
+            response = Response(status=501)
+        else:
+            try:
+                college = University.objects.filter(id=data['college'])[0]
+                user = OrdinaryUser.objects.create_user(
+                    username=data['username'],
+                    password=data['password'],
+                    first_name=data['first_name'],
+                    birthday=data['birthday'],
+                    email=data['email'],
+                    college_registry=data['college_registry']
+                )
+                user.college = college
+                college.users.add(user.id)
+                college.save()
+                user.save()
+            except ValidationError:
+                response = Response(status=500)
+        return response
