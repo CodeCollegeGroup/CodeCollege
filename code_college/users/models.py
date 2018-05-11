@@ -47,22 +47,6 @@ class Profile(models.Model):
     def get_result(self, user):
         pass
 
-    def delete(self, *args, **kwargs):
-        pass
-
-    @classmethod
-    def load(cls):
-        obj, created = cls.objects.get_or_create(pk=1)
-        return obj
-
-    def search(self, user_id):
-        user = User.objects.get(user_id)
-        result = self.get_result(user)
-        return result
-
-    def get_result(self, user):
-        pass
-
 
 class ProjectOwner(Profile):
 
