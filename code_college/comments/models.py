@@ -40,7 +40,7 @@ class Comment(FeedbackFeature):
     def change(self):
         pass
 
-    def components(self):
+    def returnComponents(self):
         pass
 
 
@@ -48,7 +48,7 @@ class CommentBase(Comment):
 
     text = models.CharField(max_length=400)
 
-    def components(self):
+    def returnComponents(self):
         return {'text': self.text}
 
 
@@ -60,28 +60,36 @@ class CommentDecorator(Comment):
             related_name='my_decorators',
             null=True)
 
-    def components(self):
-        return self.decorator.components
+    def returnComponents(self):
+        return self.decorator.returnComponents
+
+    def addComment(self,comment):
+        self.decorator = comment
+        self.save()
+
+    def removeComment(self):
+        self.decorator = null
+        self.save()
 
 
 class CommentImage(CommentDecorator):
 
     image = models.ImageField()
 
-    def components(self):
-        components = super().decorator.components()
+    def returnComponents(self):
+        components = super().decorator.returnComponents()
         components.update({'image': self.image})
         return components
 
 
-# class CommentGif(CommentDecorator):
-#
-#     gif = models.ImageField()
-#
-#     def components(self):
-#         components = super().decorator.components()
-#         components.update({'gif': self.gif})
-#         return components
+class CommentGif(CommentDecorator):
+
+    gif = models.ImageField()
+
+    def returnComponents(self):
+        components = super().decorator.returnComponents()
+        components.update({'gif': self.gif})
+        return components
 
 
 class Rating(FeedbackFeature):
