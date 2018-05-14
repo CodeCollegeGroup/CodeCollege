@@ -25,6 +25,8 @@ class FeedbackFeature(models.Model):
 
 class Comment(FeedbackFeature):
 
+    message = models.CharField(max_length=400)
+
     def answer(self):
         pass
 
@@ -40,48 +42,8 @@ class Comment(FeedbackFeature):
     def change(self):
         pass
 
-    def components(self):
-        pass
-
-
-class CommentBase(Comment):
-
-    text = models.CharField(max_length=400)
-
-    def components(self):
-        return {'text': self.text}
-
-
-class CommentDecorator(Comment):
-
-    decorator = models.ForeignKey(
-            'Comment',
-            on_delete=models.CASCADE,
-            related_name='my_decorators',
-            null=True)
-
-    def components(self):
-        return self.decorator.components
-
-
-class CommentImage(CommentDecorator):
-
-    image = models.ImageField()
-
-    def components(self):
-        components = super().decorator.components()
-        components.update({'image': self.image})
-        return components
-
-
-# class CommentGif(CommentDecorator):
-#
-#     gif = models.ImageField()
-#
-#     def components(self):
-#         components = super().decorator.components()
-#         components.update({'gif': self.gif})
-#         return components
+    def __str__(self):
+        return self.message
 
 
 class Rating(FeedbackFeature):
