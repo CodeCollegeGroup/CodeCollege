@@ -12,12 +12,21 @@ disable=missing-docstring,
 	max-line-lengh,
 	max-module-lines,
 	too-few-public-methods,
-	too-many-ancestors 
+	too-many-ancestors ,
+	duplicate-code
 
 [BASIC]
 
 # Regular expression matching correct method names
 method-rgx=(([a-z][a-z0-9_]{2,55})|(_[a-z0-9_]*))$
+
+good-names=i,
+           j,
+           k,
+           ex,
+           Run,
+		   pk,
+           _
 
 [SIMILARITIES]
 
@@ -32,3 +41,4 @@ min-similarity-lines=4
 [DESIGN]
 
 max-returns=2
+

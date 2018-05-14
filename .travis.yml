@@ -20,7 +20,7 @@ before_script:
 # using run migrations because hasn't pre-requisites like web
 script:
   - sudo docker-compose run migrations flake8 --exclude=migrations
-  - sudo docker-compose run migrations pylint $(find -name __init__.py | cut -d '/' -f 2 | sort -u | tr '\n' ' ')
+  - cd code_college && sudo docker-compose run migrations pylint $(find -name __init__.py | cut -d '/' -f 2 | sort -u | tr '\n' ' ')
   - sudo docker-compose up -d
 
   - sudo docker-compose run migrations mkdir -p tests_coverage
