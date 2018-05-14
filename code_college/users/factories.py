@@ -1,8 +1,8 @@
+import datetime
 import factory
 import factory.fuzzy
-import datetime
-from . import models
 from universities.factories import UniversityFactory
+from . import models
 
 
 class OrdinaryUserFactory(factory.DjangoModelFactory):

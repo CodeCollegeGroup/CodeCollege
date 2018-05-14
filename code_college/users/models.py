@@ -13,6 +13,7 @@ class OrdinaryUser(User):
 
     college = models.ForeignKey(
         'universities.University',
+        related_name='universities',
         on_delete=models.SET_NULL,
         null=True
     )
@@ -24,19 +25,12 @@ class OrdinaryUser(User):
 
 class Profile(models.Model):
 
-    class Meta:
-        abstract = True
-
-    def save(self, *args, **kwargs):
-        self.pk = 1
-        super(Profile, self).save(*args, **kwargs)
-
-    def delete(self, *args, **kwargs):
+    def delete(self, *args, **kwargs):  # pylint: disable=arguments-differ
         pass
 
     @classmethod
     def load(cls):
-        obj, created = cls.objects.get_or_create(pk=1)
+        obj, unused_created = cls.objects.get_or_create(pk=1)
         return obj
 
     def search(self, user_id):
@@ -46,6 +40,13 @@ class Profile(models.Model):
 
     def get_result(self, user):
         pass
+
+    def save(self, *args, **kwargs):  # pylint: disable=arguments-differ
+        self.pk = 1
+        super(Profile, self).save(*args, **kwargs)
+
+    class Meta:
+        abstract = True
 
 
 class ProjectOwner(Profile):

@@ -52,9 +52,9 @@ class ProjectProxy(Project):
             components[aux].save()
 
         components[len(components)-1].decorator = base
-        components[len(components)-1].save()    
+        components[len(components)-1].save()
 
-    def addCategory(self,projectCategory):
+    def addCategory(self, projectCategory):
         self.categories.add(projectCategory)
 
     class Meta:

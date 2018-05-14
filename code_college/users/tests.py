@@ -1,7 +1,7 @@
 from json import dumps
 from django.test import TestCase, Client as ClientTest
-from .models import OrdinaryUser
 from universities.models import University
+from .models import OrdinaryUser
 
 
 class OrdinaryUserTest(TestCase):

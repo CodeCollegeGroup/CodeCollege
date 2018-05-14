@@ -1,10 +1,10 @@
+import datetime
 import factory
 import factory.fuzzy
-import datetime
 import pytz
-from . import models
 from users.factories import OrdinaryUserFactory
 from projects.factories import ProjectFactory
+from . import models
 
 
 class CommentFactory(factory.DjangoModelFactory):

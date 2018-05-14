@@ -16,7 +16,7 @@ class ProjectCategoryFactory(factory.DjangoModelFactory):
     )
 
     @factory.post_generation
-    def projects(self, create, extracted, **kwargs):
+    def post_projects(self, create, extracted, **unused_kwargs):
         if not create:
             return
 
@@ -39,7 +39,7 @@ class DenouncementCategoryFactory(factory.DjangoModelFactory):
     )
 
     @factory.post_generation
-    def denounces(self, create, extracted, **kwargs):
+    def post_denounces(self, create, extracted, **unused_kwargs):
         if not create:
             return
 

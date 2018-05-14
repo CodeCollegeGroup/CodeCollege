@@ -10,7 +10,7 @@ from .views import RecoverView, OrdinaryUserViewSet
 ROUTER = routers.DefaultRouter()
 ROUTER.register(r'^ordinary_user', OrdinaryUserViewSet)
 
-urlpatterns = ROUTER.urls
+urlpatterns = ROUTER.urls  # pylint: disable=invalid-name
 
 urlpatterns += [
     url(r'authenticate/$', obtain_jwt_token),

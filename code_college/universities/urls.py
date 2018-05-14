@@ -4,4 +4,4 @@ from .views import UniversityViewSet
 ROUTER = routers.DefaultRouter()
 ROUTER.register(r'^university', UniversityViewSet)
 
-urlpatterns = ROUTER.urls
+urlpatterns = ROUTER.urls  # pylint: disable=invalid-name
