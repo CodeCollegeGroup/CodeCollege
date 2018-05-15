@@ -7,9 +7,6 @@ class OrdinaryUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrdinaryUser
         fields = [
+            'id',
             'username',
-            'password',
-            'birthday',
-            'college',
-            'college_registry'
         ]
