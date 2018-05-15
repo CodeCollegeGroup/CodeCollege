@@ -99,6 +99,15 @@ DATABASES = {
 }
 
 
+# JWT payload
+
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER':
+    'users.utils.jwt_response_payload_handler',
+    'JWT_ALLOW_REFRESH': True,
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 

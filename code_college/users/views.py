@@ -1,4 +1,4 @@
-from json import dumps, loads
+from json import dumps
 from django.core.mail import EmailMessage
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
@@ -79,7 +79,7 @@ class OrdinaryUserViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         response = Response()
-        data = loads(request.body.decode())
+        data = request.data
         if data['password'] != data['confirmation_password']:
             response = Response(status=501)
         else:

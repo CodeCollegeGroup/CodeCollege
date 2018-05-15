@@ -15,7 +15,8 @@ class OrdinaryUserTest(TestCase):
             email='test@mail.com',
             college_registry='10/0000000'
         )
-        self.university = University(name='UnB', id=1)
+        self.university = University(name='UnB')
+        self.university.save()
         self.client_test = ClientTest()
 
     def get_json_user(self, obj):
@@ -77,3 +78,19 @@ class OrdinaryUserTest(TestCase):
         response = self.client_test.get('/api/users/password/',
                                         {'email': 'example@mail.com'})
         self.assertEqual(response.data, dumps({'detail': 'user not found'}))
+
+    def test_create_user(self):
+        user_informations = self.get_json_user({
+            'username': 'test_user_create',
+            'first_name': 'test_user_example_create',
+            'birthday': '1997-01-02',
+            'email': 'foo@mail.com',
+            'college_registry': '11010101',
+            'college': self.university.id,
+            'confirmation_password': 'test123',
+        })
+        response = self.client_test.post(
+            '/api/users/ordinary_user/',
+            user_informations
+        )
+        self.assertEqual(response.status_code, 200)
