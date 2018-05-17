@@ -66,10 +66,13 @@ class ProjectImage(models.Model):
 
     project = models.ForeignKey(
         'projects.Project',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='project_image'
     )
 
-    image = models.ImageField()
+    image = models.ImageField(
+        upload_to='public/'
+    )
 
     def __str__(self):
         return self.image.url

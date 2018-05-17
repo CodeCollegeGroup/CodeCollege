@@ -193,3 +193,12 @@ SHELL_PLUS_PRE_IMPORTS = [
     ("comments.factories", ("*")),
     ("categories.factories", ("*")),
 ]
+
+# Media Files
+
+MEDIA_URL = '/public/'
+
+MEDIA_ROOT = os.path.join(
+    os.path.dirname(__file__),
+    '../public',
+)
